@@ -1,0 +1,175 @@
+<html>
+  <head>
+    <title>This is going to be my app</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
+    />
+    <script src="https://unpkg.com/petite-vue" defer init></script>
+  </head>
+  <header>
+    <h1>this is the login / signup page</h1>
+  </header>
+  <body>
+    <div class="grid">
+      <!--right colomun-->
+      <div></div>
+      <!--center colomun-->
+      <div align="center">
+        <!-- start login-form panel -->
+        <form class="form" id="loginForm">
+          <div>
+            <input
+              id="nameLogin"
+              name="nameLogin"
+              type="text"
+              placeholder="insert your username"
+              required
+            />
+          </div>
+          <div>
+            <input
+              id="passwordLogin"
+              name="passwordLogin"
+              type="password"
+              placeholder="password"
+              required
+            />
+          </div>
+          <div>
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+      <!-- END login-form panel -->
+      <div><!--right colomun--></div>
+      <!-- START signup-form panel -->
+      <!--
+      <div>
+      <p align="center">Don't have an account, signup here</p>
+
+      <form class="form" id="signupForm">
+        <div>
+          <input
+            id="nameSignup"
+            name="nameSignup"
+            type="text"
+            placeholder="insert your username"
+            required
+          />
+        </div>
+        <div>
+          <input
+            id="emailSignup"
+            name="emailSignup"
+            type="email"
+            placeholder="insert your email"
+            required
+          />
+        </div>
+        <div>
+          <input
+            id="passwordSignup"
+            name="passwordsignup"
+            type="password"
+            placeholder="Insert your password"
+            required
+          />
+        </div>
+        <div>
+          <input
+            id="passwordsignup"
+            type="password"
+            name="passwordsignup"
+            placeholder="Insert your password, must equal to the above"
+            required
+          />
+        </div>
+        <div>
+          <input
+            id="termsConditionsSignup"
+            name="termsConditionsSignup"
+            type="checkbox"
+            required
+          />
+          <p>this will have terms and conditions to use the app</p>
+        </div>
+        <div>
+          <button type="submit">Signup</button>
+        </div>
+      </form>
+    </div>
+    -->
+      <!-- END login-form panel -->
+    </div>
+    <script>
+      const loginForm = document.getElementById("loginForm");
+      //const signupForm = document.getElementById("signupForm");
+
+      //login event
+      loginForm.addEventListener("submit", (event) => {
+        //prevent default behaviour of form (submiting )
+        event.preventDefault();
+        const formData = new FormData(loginForm);
+
+        //console.log(formData.get("nameLogin"));
+
+        // handle login form data - the code below converts formData into a object. This object contains key-value pairs where each key corresponds to the name attribute of an input element in the form, and the value is the user's input.
+
+        const data = Object.fromEntries(formData);
+
+        // Define the URL for the login (replace URL - it's a test, replace for what is needed)
+        const url = "https://dummyjson.com/auth/login";
+
+        // Define the request options
+        const requestOptions = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: data.nameLogin,
+            password: data.passwordLogin,
+          }),
+        };
+
+        // Send the POST request
+        fetch(url, requestOptions)
+          .then((res) => {
+            if (!res.ok) {
+              // Catching errors
+              if (res.status === 404) {
+                console.error("Resource not found");
+              } else if (res.status === 403) {
+                console.error("Access forbidden");
+              } else {
+                // Handle other HTTP error codes
+                console.error("HTTP Error:", res.status);
+              }
+            }
+            return res.json();
+          })
+          .then((responseJson) => {
+            // Handle the response data here
+            window.location.href = "welcomePage.html";
+          })
+          .catch((error) => {
+            // Handle network-related errors or other issues
+            console.error("Error:", error);
+          });
+      });
+
+      /**signup event
+      signupForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(signupForm);
+        console.log(formData.get("nameSignup"));
+        // Handle signup form data
+      });**/
+    </script>
+  </body>
+
+  <footer>
+    <p>Great work keep going</p>
+  </footer>
+</html>
