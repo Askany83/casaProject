@@ -1,0 +1,193 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background: url('../images/background.jpg') no-repeat center center fixed;
+  background-size: 100% 100%;
+}
+
+.loginInputFields{
+  width: 60%;
+  margin: 0 auto;
+}
+
+.formHouseInputFields {
+  width: 60%;
+  margin: 0 auto;
+}
+
+#iWant .buttonCustomSize{
+  width: 70%;
+  margin: 0 auto;
+}
+
+.whatIs{
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+  background-color: 1f1f1f;
+  border-width: 1px;
+  border-style: solid;
+  border-color: azure;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.centerDiv{
+  text-align: center;
+}
+
+.logo{
+  margin: auto;;
+  width: 150px;
+  height: 150px;
+  margin-top: 15px;
+}
+
+.centerColumn{
+  background-color: rgba(13, 13, 13, 0.9);
+  border-color: azure;
+  border-width: 1px;
+  border-style: solid;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
+  max-width: 80vw;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.information{
+  text-align: center;
+  background-color: 111111;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.inputField{
+  background-color: 1f1f1f;
+}
+
+.info{
+  text-align: center;
+  font-size: 15px;
+}
+
+.textDown{
+  position: relative;
+  top: 10px;
+}
+
+.costum-outline{
+  color: rgba(255, 0, 0, 0.527);
+}
+
+.costum-outlineExit{
+  color: rgba(255, 0, 0, 0.527);
+  margin: 0 auto;
+  width: 50%;
+}
+
+.infoDiv{
+  text-align: center;
+  background-color: 1f1f1f;
+  border-width: 1px;
+  border-style: solid;
+  border-color: azure;
+  padding: 40px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.appName{
+  color: #ffffff;
+  margin-top: -20px;
+}
+
+.dot{
+  font-size: 50%;
+}
+
+.appName2nd{
+  color: rgba(255, 0, 0, 0.527);
+  font-size: 150%;
+}
+
+.hidden{
+  display:none;
+}
+
+.buttonSideBySide{
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+  
+}
+
+.button{
+  margin: 10px;
+}
+
+.activeButtonToggle{
+  color: #ffffff;
+}
+
+.noBorderButton{
+  border:none;
+}
+
+.iconHouseCard{
+  width: 30%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.headerCardHouse{
+  width: 80%;
+  margin: -50px 0 auto;
+}
+
+.houseDisplay {
+  margin: 0 auto;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: azure;
+  padding: 40px;
+  margin: 10px;
+}
+
+.buttonHouseCard{
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+#map {
+  height: 500px;
+  width: 95%;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.houseAtributeLogDiv1{
+  flex: 1;
+  width: 25%;
+  align-items: center;
+}
+
+.houseAtributeLogDiv2 {
+  flex: 4;
+  width: 75%;
+  margin-bottom: 10px;
+  text-align: left;
+  align-items: center;
+}
+
+.gridCardHouse{
+  display: flex;
+}

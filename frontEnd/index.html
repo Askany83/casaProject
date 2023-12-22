@@ -1,0 +1,170 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>login - C.A.S.A.</title>
+    <link rel="icon" href="./assests/images/iconHouse.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="./assests/styles/body.css" />
+
+    <!-- <script src="https://unpkg.com/petite-vue" defer init></script> -->
+  </head>
+
+  <body>
+    <main class="container">
+      <div class="grid centerDiv centerColumn">
+        <!-- <div>
+          Left Column
+        </div> -->
+
+        <div>
+          <!-- Center Column -->
+          <!--1st row-->
+          <div class="logo">
+            <img
+              src="./assests/images/houseLogo.png"
+              alt="houseLogo not loading"
+            />
+          </div>
+
+          <!--2nd row-->
+          <div class="centerDiv">
+            <h1 class="appName">
+              <b
+                >C<em class="dot">. </em>A<em class="dot">. </em>S<em
+                  class="dot"
+                  >. </em
+                >A<em class="dot">.</em></b
+              >
+            </h1>
+          </div>
+
+          <div v-scope="loginApp">
+            <form v-if="!isLoggedin" @submit.prevent="login">
+              <p class="info">
+                Por favor, faz login para acederes à sua conta.
+              </p>
+              <div class="loginInputFields">
+                <input
+                  type="text"
+                  v-model="username"
+                  placeholder="Username"
+                  class="inputField"
+                />
+                <input
+                  type="password"
+                  v-model="password"
+                  placeholder="Password"
+                  class="inputField"
+                />
+                <button
+                  type="submit"
+                  :area-busy="isLoading.toString()"
+                  class="outline"
+                >
+                  Entrar
+                </button>
+              </div>
+
+              <br />
+              <br />
+              <!--explain what the app is all about-->
+              <div class="whatIs">
+                <h3 class="textDown">
+                  O que é a app <br />
+                  C<em class="dot">. </em>A<em class="dot">. </em>S<em
+                    class="dot"
+                    >. </em
+                  >A<em class="dot">.</em> ?
+                </h3>
+                <p>
+                  <b class="appName2nd">C</b>adastro de
+                  <b class="appName2nd">A</b>lojamento
+                  <br />
+                  <b class="appName2nd">S</b>em
+                  <b class="appName2nd">A</b>proveitamento
+                </p>
+                <p>
+                  é uma resposta criativa ao problema da falta de habitação em
+                  Portugal.
+                </p>
+                <p>
+                  Chamamos-te a ti para ajudar a catalogar as casas devolutas
+                  que merecem atenção, que precisam de alguém. Porque mais que
+                  um direito é uma necessidade.
+                </p>
+                <p><b>A iniciativa está do teu lado.</b></p>
+              </div>
+            </form>
+
+            <div v-else class="centerDiv">
+              <div data-pageactive="true">
+                <!--button to pannel-->
+
+                <div id="iWant">
+                  <div class="information whatIs">
+                    <h3>Olá {{ user && user.firstName }}!</h3>
+
+                    <h5 class="centerDiv">Acede ao Painel de Controlo.</h5>
+                    <p class="centerDiv info">
+                      <b>Visualiza</b> os teu registos <br />
+                      ou <br />
+                      <b>Cadastrar</b> uma nova propriedade desocupada.
+                    </p>
+
+                    <input
+                      type="button"
+                      onclick="location.href='registerAndView.html';"
+                      value="Painel de Controlo"
+                      class="buttonCustomSize outline"
+                    />
+                  </div>
+
+                  <div>
+                    <br />
+                    <img src="./assests/images/3d-model-house-room.png" />
+                  </div>
+
+                  <!--logout button-->
+                  <div>
+                    <br />
+                    <button
+                      @click="logout"
+                      class="contrast outline costum-outlineExit"
+                    >
+                      Sair
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!--end of v-else-->
+            </div>
+          </div>
+
+          <div class="centerDiv">
+            <br />
+            <p class="info">GNU v3 - <em>Made by </em>Askany</p>
+          </div>
+          <!--end of center column-->
+        </div>
+
+        <!-- <div>
+          Right Column
+        </div> -->
+      </div>
+    </main>
+
+    <!-- login and logout -->
+    <script src="./components/User.js" type="module"></script>
+  </body>
+</html>

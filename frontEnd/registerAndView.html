@@ -1,0 +1,437 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Painel Administrativo - C.A.S.A.</title>
+    <!--favicon ********************************************************************************************-->
+    <link rel="icon" href="./assests/images/iconHouse.png" type="image/png" />
+    <!--check if login ********************************************************************************************-->
+    <script src="./scripts/checkIfLoggedIn.js"></script>
+    <!--CDN Pico.css ********************************************************************************************-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
+    />
+    <!--font family ********************************************************************************************-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <!--custom css & js ********************************************************************************************-->
+    <link rel="stylesheet" href="./assests/styles/body.css" />
+    <!--map css********************************************************************************************-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </head>
+  <body v-scope id="app">
+    <main class="container">
+      <div class="grid centerDiv centerColumn">
+        <!-- <div>
+          Left Column
+        </div> -->
+        <div>
+          <!--center column ********************************************************************************************-->
+          <div class="logo">
+            <img
+              src="./assests/images/houseLogo.png"
+              alt="houseLogo not loading"
+            />
+          </div>
+
+          <!--2nd row-->
+          <div class="centerDiv">
+            <h1 class="appName">
+              <b
+                >C<em class="dot">. </em>A<em class="dot">. </em>S<em
+                  class="dot"
+                  >. </em
+                >A<em class="dot">.</em></b
+              >
+            </h1>
+          </div>
+
+          <div v-scope>
+            <!-- v-scope ********************************************************************************************-->
+            <div class="information whatIs">
+              <br />
+              <h6>Escolhe o que queres fazer!</h6>
+              <!-- housesButton toggle - button ********************************************************************************************-->
+              <div>
+                <div class="buttonSideBySide">
+                  <button
+                    @click="toggleContent('housesButton') "
+                    :class="{ 'outline': show === 'housesButton' } "
+                    class="button outline"
+                  >
+                    <span
+                      class="activeButtonToggle"
+                      v-if="show === 'housesButton'"
+                      >Casas</span
+                    >
+                    <span v-else>Ver Registos</span>
+                  </button>
+
+                  <!-- formButton toggle - button ********************************************************************************************-->
+                  <button
+                    @click="toggleContent('formButton')"
+                    :class="{ 'outline': show === 'formButton' } "
+                    class="button outline"
+                  >
+                    <span
+                      class="activeButtonToggle"
+                      v-if="show === 'formButton'"
+                      >Formulário</span
+                    >
+                    <span v-else>Registar Casa</span>
+                  </button>
+
+                  <!--map toggle - button ********************************************************************************************-->
+                  <button
+                    @click="toggleContent('mapa')"
+                    :class="{ 'outline': show === 'mapa' } "
+                    class="button outline"
+                  >
+                    <span class="activeButtonToggle" v-if="show === 'mapa'"
+                      >Mapa</span
+                    >
+                    <span v-else>Mapear</span>
+                  </button>
+                </div>
+              </div>
+
+              <br />
+              <!-- housesButton toggle - content ********************************************************************************************-->
+              <div v-if="show === 'housesButton'">
+                <div
+                  v-for="house in houses"
+                  :key="house._id"
+                  class="houseDisplay infoDiv"
+                >
+                  <div class="grid gridCardHouse">
+                    <div class="houseAtributeLogDiv1">
+                      <img
+                        src="./assests/images/street.png"
+                        alt="street icon not loading"
+                        class="iconHouseCard"
+                      />
+                    </div>
+                    <div class="houseAtributeLogDiv2">
+                      <p>{{ house.streetName }}</p>
+                    </div>
+                  </div>
+
+                  <div class="grid gridCardHouse">
+                    <div class="houseAtributeLogDiv1">
+                      <img
+                        src="./assests/images/city.png"
+                        alt="location icon not loading"
+                        class="iconHouseCard"
+                      />
+                    </div>
+                    <div class="houseAtributeLogDiv2">
+                      <p>{{ house.location }}</p>
+                    </div>
+                  </div>
+
+                  <div class="grid gridCardHouse">
+                    <div class="houseAtributeLogDiv1">
+                      <img
+                        src="./assests/images/postalCode.png"
+                        alt="postal code icon not loading"
+                        class="iconHouseCard"
+                      />
+                    </div>
+                    <div class="houseAtributeLogDiv2">
+                      <p>{{ house.postalCode }}</p>
+                    </div>
+                  </div>
+
+                  <div class="grid gridCardHouse">
+                    <div class="houseAtributeLogDiv1">
+                      <img
+                        src="./assests/images/latitude.png"
+                        alt="latitude icon not loading"
+                        class="iconHouseCard"
+                      />
+                    </div>
+                    <div class="houseAtributeLogDiv2">
+                      <p>{{ house.latitude }}</p>
+                    </div>
+                  </div>
+
+                  <div class="grid gridCardHouse">
+                    <div class="houseAtributeLogDiv1">
+                      <img
+                        src="./assests/images/longitude.png"
+                        alt="longitude icon not loading"
+                        class="iconHouseCard"
+                      />
+                    </div>
+                    <div class="houseAtributeLogDiv2">
+                      <p>{{ house.longitude }}</p>
+                    </div>
+                  </div>
+
+                  <p class="hidden">{{house._id}}</p>
+
+                  <div>
+                    <!-- Button to trigger the DELETE modal ********************************************************************************************-->
+                    <button
+                      class="contrast outline buttonHouseCard"
+                      v-bind:data-target="house._id"
+                      onClick="toggleModal(event)"
+                    >
+                      Apagar
+                    </button>
+
+                    <!-- Modal - delete ********************************************************************************************-->
+                    <dialog v-bind:id="house._id">
+                      <article>
+                        <a
+                          href="#close"
+                          aria-label="Close"
+                          class="close"
+                          v-bind:data-target="house._id"
+                          onClick="toggleModal(event)"
+                        >
+                        </a>
+                        <h3>Apagar Casa?</h3>
+                        <p>
+                          A casa que escolheu e toda a sua informação vai ser
+                          eliminada.
+                        </p>
+                        <footer>
+                          <a
+                            href="#cancel"
+                            role="button"
+                            class="secondary"
+                            v-bind:data-target="house._id"
+                            onClick="toggleModal(event)"
+                          >
+                            Cancelar
+                          </a>
+                          <a
+                            href="#confirm"
+                            role="button"
+                            v-bind:data-target="house._id"
+                            @Click="confirmDelete($event)"
+                          >
+                            Apagar
+                          </a>
+                        </footer>
+                      </article>
+                    </dialog>
+                    <!--end off modal - delete ********************************************************************************************-->
+
+                    <!-- Button to trigger the EDIT modal ********************************************************************************************-->
+                    <button
+                      class="contrast outline buttonHouseCard"
+                      v-bind:data-target="'edit' + house._id"
+                      onClick="editModal(event)"
+                    >
+                      Editar
+                    </button>
+
+                    <!-- Modal - edit ********************************************************************************************-->
+                    <dialog v-bind:id="'edit' + house._id">
+                      <article>
+                        <a
+                          href="#close"
+                          aria-label="Close"
+                          class="close"
+                          v-bind:data-target="'edit' + house._id"
+                          onClick="editModal(event)"
+                        >
+                        </a>
+                        <h3>Editar Casa?</h3>
+
+                        <input
+                          type="text"
+                          name="streetName"
+                          v-bind:id="'editStreetName' + house._id"
+                          class="inputField"
+                          v-model="house.streetName"
+                        />
+                        <input
+                          type="text"
+                          name="cityName"
+                          v-model="house.location"
+                          v-bind:id="'editLocation' + house._id"
+                          class="inputField"
+                        />
+                        <input
+                          type="text"
+                          name="codigoPostal"
+                          v-model="house.postalCode"
+                          v-bind:id="'editCodigoPostal' + house._id"
+                          class="inputField"
+                        />
+                        <input
+                          type="text"
+                          name="latitude"
+                          v-model="house.latitude"
+                          v-bind:id="'editLatitude' + house._id"
+                          class="inputField"
+                          pattern="-?\d+(\.\d+)?"
+                          title="Please enter a valid number"
+                        />
+
+                        <input
+                          type="text"
+                          name="longitude"
+                          v-model="house.longitude"
+                          v-bind:id="'editLongitude' + house._id"
+                          class="inputField"
+                          pattern="-?\d+(\.\d+)?"
+                          title="Please enter a valid number"
+                        />
+                        <footer>
+                          <a
+                            href="#cancel"
+                            role="button"
+                            class="secondary"
+                            v-bind:data-target="'edit' + house._id"
+                            onClick="editModal(event)"
+                          >
+                            Cancelar
+                          </a>
+                          <a
+                            href="#confirm"
+                            role="button"
+                            v-bind:data-target="'edit' + house._id"
+                            @Click="confirmEdit($event)"
+                          >
+                            Editar
+                          </a>
+                        </footer>
+                      </article>
+                    </dialog>
+                    <!--end off modal - edit ********************************************************************************************-->
+                  </div>
+
+                  <br />
+                </div>
+              </div>
+
+              <!-- formButton toggle - content ********************************************************************************************-->
+              <div v-else-if="show === 'formButton'">
+                <form
+                  id="registerHouse_form"
+                  onsubmit="submitForm(event)"
+                  class="formHouseInputFields"
+                >
+                  <!-- leave for last
+                <input type="file" accept="image/*" required />
+                <label for="photo" align="left">Foto da casa</label>-->
+
+                  <p class="info">
+                    Por favor, insira os dados para Registar Casa.
+                  </p>
+
+                  <input
+                    type="text"
+                    id="streetName"
+                    name="streetName"
+                    placeholder="Nome da rua"
+                    class="inputField"
+                    required
+                  />
+                  <input
+                    type="text"
+                    id="cityName"
+                    name="cityName"
+                    placeholder="Cidade ou Localidade"
+                    class="inputField"
+                    required
+                  />
+                  <input
+                    type="text"
+                    id="codigoPostal"
+                    name="codigoPostal"
+                    placeholder="Código Postal"
+                    class="inputField"
+                    required
+                  />
+                  <input
+                    type="text"
+                    id="latitude"
+                    name="latitude"
+                    placeholder="Latitude (em graus)"
+                    class="inputField"
+                    pattern="-?\d+(\.\d+)?"
+                    title="Please enter a valid number"
+                    required
+                  />
+
+                  <input
+                    type="text"
+                    id="longitude"
+                    name="longitude"
+                    placeholder="Longitude (em graus)"
+                    class="inputField"
+                    pattern="-?\d+(\.\d+)?"
+                    title="Please enter a valid number"
+                    required
+                  />
+                  <button type="submit" class="outline">Registar Casa</button>
+                  <!-- end form -->
+                </form>
+              </div>
+
+              <!-- formButton toggle - content ********************************************************************************************-->
+              <div v-else-if="show === 'mapa'">
+                <div id="map"></div>
+              </div>
+
+              <!-- what is seen when the user enters the 'Painel de Controle' ********************************************************************************************-->
+              <div v-else>
+                <div>
+                  <img src="./assests/images/3d-model-house-room.png" />
+                </div>
+                <br />
+              </div>
+            </div>
+            <!--logout button ********************************************************************************************-->
+            <br />
+            <div>
+              <button
+                class="contrast outline costum-outlineExit"
+                onclick="removeLogin()"
+              >
+                Sair
+              </button>
+            </div>
+          </div>
+          <div class="centerDiv">
+            <br />
+            <p class="info">GNU v3 - <em>Made by </em>Askany</p>
+          </div>
+          <!--end of center column ********************************************************************************************-->
+        </div>
+
+        <!-- <div>
+          Left Column
+        </div> -->
+      </div>
+    </main>
+
+    <script src="./components/ToggleContent.js" type="module"></script>
+    <script src="./scripts/logout.js"></script>
+    <!-- <script src="./scripts/toggleModal.js"></script> -->
+    <script src="./scripts/deleteHouse.js"></script>
+    <script src="./scripts/registerHouse.js"></script>
+    <script src="./scripts/editHouse.js"></script>
+    <script src="./scripts/map.js"></script>
+  </body>
+</html>
