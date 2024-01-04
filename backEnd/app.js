@@ -8,6 +8,8 @@ import UserRoutes from './routes/UserRoutes.js';
 import HouseRoutes from './routes/HouseRoutes.js';
 import cors from 'cors';
 
+
+
 //route for express - will serve front and backend
 import path from 'path';
 import { fileURLToPath } from 'url';

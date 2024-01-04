@@ -1,5 +1,3 @@
-// schema for house
-
 import mongoose from "mongoose";
 
 var schema = new mongoose.Schema({
@@ -7,7 +5,7 @@ var schema = new mongoose.Schema({
     type: String,
     required: true,
     default: '',
-    },
+  },
   location: {
     type: String,
     required: true,
@@ -28,7 +26,13 @@ var schema = new mongoose.Schema({
     required: true,
     default: '',
   },
+  photo: {
+    type: Buffer, // Using Buffer to store binary data
+  },
+  photoContentType: {
+    type: String, // Store content type, e.g., 'image/jpeg'
+  },
 });
 
-var House= new mongoose.model('House', schema);
+var House = new mongoose.model('House', schema);
 export default House;

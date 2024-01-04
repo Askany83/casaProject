@@ -1,22 +1,22 @@
 import express from 'express';
-
-//import house controllers
+import multer from 'multer';
 import { createHouse, deleteHouse, findAllHouses, findOneHouse, updateHouse } from '../controllers/HouseController.js';
 
-//define routes for the API
-const HouseRoutes =express.Router();
+const HouseRoutes = express.Router();
 
-// create House
-HouseRoutes.post('/create', createHouse);
-//update House
-HouseRoutes.patch("/:houseId", updateHouse);
-//delete House
+// Configure Multer for handling file uploads
+const storage = multer.memoryStorage(); // Use memory storage to store files as buffers
+const upload = multer({ storage: storage });
+
+// create House with file upload
+HouseRoutes.post('/create', upload.single('photo'), createHouse);
+
+// update House with file upload
+HouseRoutes.patch("/:houseId", upload.single('photo'), updateHouse);
+
+// other routes 
 HouseRoutes.delete("/:houseId", deleteHouse);
-//read Houses, get all
 HouseRoutes.get("/", findAllHouses);
-//get one house
 HouseRoutes.get("/:houseId", findOneHouse);
 
-
-//last thing here
 export default HouseRoutes;

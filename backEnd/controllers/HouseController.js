@@ -9,7 +9,8 @@ export const createHouse = async (req, res) => {
       !req.body.location ||
       !req.body.postalCode ||
       !req.body.latitude ||
-      !req.body.longitude
+      !req.body.longitude ||
+      !req.file
     ){
       return res.status(400).send({
         message: 'Please check if all data for the house was inserted',
@@ -20,12 +21,15 @@ export const createHouse = async (req, res) => {
       location: req.body.location,
       postalCode: req.body.postalCode,
       latitude: req.body.latitude,
-      longitude: req.body.longitude
+      longitude: req.body.longitude,
+      photo: req.file.buffer,
+      photoContentType: req.file.mimetype,
     });
     console.log(houseObj);
+    console.log(req.file.buffer);
 
     const savedHouse = await houseObj.save();
-    //201 - sucesso
+    //201 - success
     res.status(201).json({
       message: 'House created successfully',
       house: savedHouse,
@@ -39,33 +43,40 @@ export const createHouse = async (req, res) => {
 
 //update House ******************************************
 export const updateHouse = async (req, res) => {
-  
-    if(!req.body){
-      return res.status(400).send({
-        message:'House content cannot be empty'
-      });
-    }
+  if (!req.body) {
+    return res.status(400).send({
+      message: 'House content cannot be empty'
+    });
+  }
   try {
     const id = req.params.houseId;
-    //findIdAndUpdate return all if null if no document found
+
+    // Check if photo is provided
+    if (req.file) {
+      req.body.photo = req.file.buffer;
+      req.body.photoContentType = req.file.mimetype;
+    }
+
+    // findIdAndUpdate return all if null if no document found
     const data = await House.findByIdAndUpdate(id, req.body, {
-    //return the modified document rather than the original
-    new: true,
+      // return the modified document rather than the original
+      new: true,
     });
 
-    if (!data){
+    if (!data) {
       return res.status(404).send({
-        message :`cannot update House with id=${id}. Maybe the House was not found`,
+        message: `cannot update House with id=${id}. Maybe the House was not found`,
       });
     }
     res.send({ message: `House was update`, data: data });
   } catch (error) {
-    //if there is any error, we send it to the client
+    // if there is any error, we send it to the client
     res.status(500).send({
       message: `error updating House with id ` + req.params.houseId,
     });
   }
 };
+
 
 //delete House ******************************************
 export const deleteHouse = async (req, res) => {
@@ -109,7 +120,7 @@ export const findAllHouses = async (req, res) => {
   try {
     const houses = await House.find();
     res.status(200).json(houses);
-    //console.log(houses);
+    console.log(houses);
   } catch (error) {
     res.status(500).json({
       message: error.message || "some error occurred while retrieving Houses",

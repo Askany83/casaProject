@@ -86,7 +86,7 @@ body {
 }
 
 .costum-outlineExit{
-  color: rgba(255, 0, 0, 0.527);
+  color: rgb(255, 255, 255);
   margin: 0 auto;
   width: 50%;
 }
@@ -132,8 +132,9 @@ body {
   margin: 10px;
 }
 
-.activeButtonToggle{
+.activeButtonToggle {
   color: #ffffff;
+  font-size: larger;
 }
 
 .noBorderButton{
@@ -168,8 +169,8 @@ body {
 }
 
 #map {
-  height: 500px;
-  width: 95%;
+  height: 800px;
+  width: 90%;
   justify-content: center;
   margin: 0 auto;
 }
@@ -190,4 +191,9 @@ body {
 
 .gridCardHouse{
   display: flex;
+}
+
+.housePhotoCard{
+  width: 250px;
+  height: 250px;
 }

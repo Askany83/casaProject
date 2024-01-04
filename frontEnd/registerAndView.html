@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -61,284 +62,341 @@
             </h1>
           </div>
 
-          <div v-scope>
-            <!-- v-scope ********************************************************************************************-->
+          <div>
             <div class="information whatIs">
               <br />
-              <h6>Escolhe o que queres fazer!</h6>
+              <h4>Escolhe o que queres fazer!</h4>
               <!-- housesButton toggle - button ********************************************************************************************-->
-              <div>
-                <div class="buttonSideBySide">
-                  <button
-                    @click="toggleContent('housesButton') "
-                    :class="{ 'outline': show === 'housesButton' } "
-                    class="button outline"
-                  >
-                    <span
-                      class="activeButtonToggle"
-                      v-if="show === 'housesButton'"
-                      >Casas</span
-                    >
-                    <span v-else>Ver Registos</span>
-                  </button>
 
-                  <!-- formButton toggle - button ********************************************************************************************-->
-                  <button
-                    @click="toggleContent('formButton')"
-                    :class="{ 'outline': show === 'formButton' } "
-                    class="button outline"
+              <div class="buttonSideBySide">
+                <!-- main toggle - button ********************************************************************************************-->
+                <!-- <button
+                  @click="toggleContent('main') "
+                  :class="{ 'outline': show === 'main' } "
+                  class="button outline"
+                >
+                  <span class="activeButtonToggle" v-if="show === 'main'"
+                    ><b>Início</b></span
                   >
-                    <span
-                      class="activeButtonToggle"
-                      v-if="show === 'formButton'"
-                      >Formulário</span
-                    >
-                    <span v-else>Registar Casa</span>
-                  </button>
+                  <span v-else>Início</span>
+                </button> -->
 
-                  <!--map toggle - button ********************************************************************************************-->
-                  <button
-                    @click="toggleContent('mapa')"
-                    :class="{ 'outline': show === 'mapa' } "
-                    class="button outline"
+                <!-- housesButton toggle - button ********************************************************************************************-->
+                <button
+                  @click="toggleContent('housesButton') "
+                  :class="{ 'outline': show === 'housesButton' } "
+                  class="button outline"
+                >
+                  <span
+                    class="activeButtonToggle"
+                    v-if="show === 'housesButton'"
+                    ><b>Casas</b></span
                   >
-                    <span class="activeButtonToggle" v-if="show === 'mapa'"
-                      >Mapa</span
-                    >
-                    <span v-else>Mapear</span>
-                  </button>
-                </div>
+                  <span v-else>Ver Registos</span>
+                </button>
+
+                <!-- formButton toggle - button ********************************************************************************************-->
+                <button
+                  @click="toggleContent('formButton')"
+                  :class="{ 'outline': show === 'formButton' } "
+                  class="button outline"
+                >
+                  <span class="activeButtonToggle" v-if="show === 'formButton'"
+                    ><b>Formulário</b></span
+                  >
+                  <span v-else>Registar Casa</span>
+                </button>
+
+                <!--map toggle - button ********************************************************************************************-->
+                <button
+                  @click="toggleContent('mapa')"
+                  :class="{ 'outline': show === 'mapa' } "
+                  class="button outline"
+                >
+                  <span class="activeButtonToggle" v-if="show === 'mapa'"
+                    ><b>Mapa</b></span
+                  >
+                  <span v-else>Mapa</span>
+                </button>
               </div>
 
               <br />
+              <!-- end of toogle buttons ********************************************************************************************-->
               <!-- housesButton toggle - content ********************************************************************************************-->
               <div v-if="show === 'housesButton'">
-                <div
-                  v-for="house in houses"
-                  :key="house._id"
-                  class="houseDisplay infoDiv"
-                >
-                  <div class="grid gridCardHouse">
-                    <div class="houseAtributeLogDiv1">
+                <div v-if="houses.length > 0">
+                  <div
+                    v-for="house in houses"
+                    :key="house._id"
+                    class="houseDisplay infoDiv"
+                  >
+                    <br />
+                    <div class="grid gridCardHouse">
+                      <div class="houseAtributeLogDiv1">
+                        <img
+                          src="./assests/images/street.png"
+                          alt="street icon not loading"
+                          class="iconHouseCard"
+                        />
+                      </div>
+                      <div class="houseAtributeLogDiv2">
+                        <p>{{ house.streetName }}</p>
+                      </div>
+                    </div>
+
+                    <div class="grid gridCardHouse">
+                      <div class="houseAtributeLogDiv1">
+                        <img
+                          src="./assests/images/city.png"
+                          alt="location icon not loading"
+                          class="iconHouseCard"
+                        />
+                      </div>
+                      <div class="houseAtributeLogDiv2">
+                        <p>{{ house.location }}</p>
+                      </div>
+                    </div>
+
+                    <div class="grid gridCardHouse">
+                      <div class="houseAtributeLogDiv1">
+                        <img
+                          src="./assests/images/postalCode.png"
+                          alt="postal code icon not loading"
+                          class="iconHouseCard"
+                        />
+                      </div>
+                      <div class="houseAtributeLogDiv2">
+                        <p>{{ house.postalCode }}</p>
+                      </div>
+                    </div>
+
+                    <div class="grid gridCardHouse">
+                      <div class="houseAtributeLogDiv1">
+                        <img
+                          src="./assests/images/compass.png"
+                          alt="latitude icon not loading"
+                          class="iconHouseCard"
+                        />
+                      </div>
+                      <div class="houseAtributeLogDiv2">
+                        <p>{{ house.latitude }}, {{ house.longitude }}</p>
+                      </div>
+                    </div>
+                    <div v-if="house.photo && house.photo.data">
                       <img
-                        src="./assests/images/street.png"
-                        alt="street icon not loading"
-                        class="iconHouseCard"
+                        :src="house.photo && house.photo.data ? `data:${house.photoContentType};base64,${arrayBufferToBase64(house.photo.data)}` : ''"
+                        alt="House Image not loading"
+                        class="housePhotoCard"
                       />
                     </div>
-                    <div class="houseAtributeLogDiv2">
-                      <p>{{ house.streetName }}</p>
+                    <p v-else>No image available</p>
+                    <p class="hidden">{{house._id}}</p>
+                    <br />
+
+                    <div>
+                      <!-- Button to trigger the DELETE modal ********************************************************************************************-->
+                      <button
+                        class="contrast outline buttonHouseCard"
+                        v-bind:data-target="house._id"
+                        @click="toggleModal(event)"
+                      >
+                        Apagar
+                      </button>
+
+                      <!-- Modal - delete ********************************************************************************************-->
+                      <dialog v-bind:id="house._id">
+                        <article>
+                          <a
+                            href="#close"
+                            aria-label="Close"
+                            class="close"
+                            v-bind:data-target="house._id"
+                            @click="toggleModal(event)"
+                          >
+                          </a>
+                          <h3>Apagar Casa?</h3>
+                          <p>
+                            A casa que escolheu e toda a sua informação vai ser
+                            eliminada.
+                          </p>
+                          <footer>
+                            <a
+                              href="#cancel"
+                              role="button"
+                              class="secondary"
+                              v-bind:data-target="house._id"
+                              @click="toggleModal(event)"
+                            >
+                              Cancelar
+                            </a>
+                            <a
+                              href="#confirm"
+                              role="button"
+                              v-bind:data-target="house._id"
+                              @click="confirmDelete($event)"
+                            >
+                              Apagar
+                            </a>
+                          </footer>
+                        </article>
+                      </dialog>
+                      <!--end off modal - delete ********************************************************************************************-->
+
+                      <!-- Button to trigger the EDIT modal ********************************************************************************************-->
+                      <button
+                        class="contrast outline buttonHouseCard"
+                        v-bind:data-target="'edit' + house._id"
+                        @click="editModal(event)"
+                      >
+                        Editar
+                      </button>
+
+                      <!-- Modal - edit ********************************************************************************************-->
+                      <dialog v-bind:id="'edit' + house._id">
+                        <article>
+                          <form>
+                            <a
+                              href="#close"
+                              aria-label="Close"
+                              class="close"
+                              v-bind:data-target="'edit' + house._id"
+                              @click="editModal(event)"
+                            >
+                            </a>
+                            <h3>Editar Casa?</h3>
+
+                            <label>Nome da rua</label>
+                            <input
+                              type="text"
+                              name="streetName"
+                              v-bind:id="'editStreetName' + house._id"
+                              class="inputField"
+                              v-model="house.streetName"
+                            />
+                            <label>Cidade ou Localidade</label>
+                            <input
+                              type="text"
+                              name="cityName"
+                              v-model="house.location"
+                              v-bind:id="'editLocation' + house._id"
+                              class="inputField"
+                            />
+                            <label>Código Postal</label>
+                            <input
+                              type="text"
+                              name="codigoPostal"
+                              v-model="house.postalCode"
+                              v-bind:id="'editCodigoPostal' + house._id"
+                              class="inputField"
+                            />
+                            <label>Latitude (em graus)</label>
+                            <input
+                              type="text"
+                              name="latitude"
+                              v-model="house.latitude"
+                              v-bind:id="'editLatitude' + house._id"
+                              class="inputField"
+                              pattern="-?\d+(\.\d+)?"
+                              title="Please enter a valid number"
+                            />
+                            <label>Longitude em graus</label>
+                            <input
+                              type="text"
+                              name="longitude"
+                              v-model="house.longitude"
+                              v-bind:id="'editLongitude' + house._id"
+                              class="inputField"
+                              pattern="-?\d+(\.\d+)?"
+                              title="Please enter a valid number"
+                            />
+
+                            <div>
+                              <div v-if="house.photo && house.photo.data">
+                                <label>Foto em Sistema</label>
+                                <img
+                                  :src="house.photo && house.photo.data ? `data:${house.photoContentType};base64,${arrayBufferToBase64(house.photo.data)}` : ''"
+                                  alt="House Image not loading"
+                                  class="housePhotoCard"
+                                  v-bind:id="'photo' + house._id"
+                                />
+                              </div>
+                              <p v-else>Sem Imagem disponível</p>
+                              <br />
+                              <br />
+                              <label>Adicionar outra Foto</label>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                v-bind:id="'editPhoto' + house._id"
+                                name="photo"
+                              />
+                            </div>
+                            <br />
+                            <footer>
+                              <a
+                                href="#cancel"
+                                role="button"
+                                class="secondary"
+                                v-bind:data-target="'edit' + house._id"
+                                @click="editModal(event)"
+                              >
+                                Cancelar
+                              </a>
+                              <a
+                                href="#confirm"
+                                role="button"
+                                v-bind:data-target="'edit' + house._id"
+                                @click="confirmEdit($event)"
+                              >
+                                Editar
+                              </a>
+                            </footer>
+                          </form>
+                        </article>
+                      </dialog>
+                      <!--end off modal - edit ********************************************************************************************-->
                     </div>
+                    <br />
                   </div>
-
-                  <div class="grid gridCardHouse">
-                    <div class="houseAtributeLogDiv1">
-                      <img
-                        src="./assests/images/city.png"
-                        alt="location icon not loading"
-                        class="iconHouseCard"
-                      />
-                    </div>
-                    <div class="houseAtributeLogDiv2">
-                      <p>{{ house.location }}</p>
-                    </div>
-                  </div>
-
-                  <div class="grid gridCardHouse">
-                    <div class="houseAtributeLogDiv1">
-                      <img
-                        src="./assests/images/postalCode.png"
-                        alt="postal code icon not loading"
-                        class="iconHouseCard"
-                      />
-                    </div>
-                    <div class="houseAtributeLogDiv2">
-                      <p>{{ house.postalCode }}</p>
-                    </div>
-                  </div>
-
-                  <div class="grid gridCardHouse">
-                    <div class="houseAtributeLogDiv1">
-                      <img
-                        src="./assests/images/latitude.png"
-                        alt="latitude icon not loading"
-                        class="iconHouseCard"
-                      />
-                    </div>
-                    <div class="houseAtributeLogDiv2">
-                      <p>{{ house.latitude }}</p>
-                    </div>
-                  </div>
-
-                  <div class="grid gridCardHouse">
-                    <div class="houseAtributeLogDiv1">
-                      <img
-                        src="./assests/images/longitude.png"
-                        alt="longitude icon not loading"
-                        class="iconHouseCard"
-                      />
-                    </div>
-                    <div class="houseAtributeLogDiv2">
-                      <p>{{ house.longitude }}</p>
-                    </div>
-                  </div>
-
-                  <p class="hidden">{{house._id}}</p>
-
+                </div>
+                <div v-else>
+                  <!-- Display message when no houses are available -->
+                  <h5>Nenhuma Casa em Sistema</h5>
+                  <br />
                   <div>
-                    <!-- Button to trigger the DELETE modal ********************************************************************************************-->
-                    <button
-                      class="contrast outline buttonHouseCard"
-                      v-bind:data-target="house._id"
-                      onClick="toggleModal(event)"
-                    >
-                      Apagar
-                    </button>
-
-                    <!-- Modal - delete ********************************************************************************************-->
-                    <dialog v-bind:id="house._id">
-                      <article>
-                        <a
-                          href="#close"
-                          aria-label="Close"
-                          class="close"
-                          v-bind:data-target="house._id"
-                          onClick="toggleModal(event)"
-                        >
-                        </a>
-                        <h3>Apagar Casa?</h3>
-                        <p>
-                          A casa que escolheu e toda a sua informação vai ser
-                          eliminada.
-                        </p>
-                        <footer>
-                          <a
-                            href="#cancel"
-                            role="button"
-                            class="secondary"
-                            v-bind:data-target="house._id"
-                            onClick="toggleModal(event)"
-                          >
-                            Cancelar
-                          </a>
-                          <a
-                            href="#confirm"
-                            role="button"
-                            v-bind:data-target="house._id"
-                            @Click="confirmDelete($event)"
-                          >
-                            Apagar
-                          </a>
-                        </footer>
-                      </article>
-                    </dialog>
-                    <!--end off modal - delete ********************************************************************************************-->
-
-                    <!-- Button to trigger the EDIT modal ********************************************************************************************-->
-                    <button
-                      class="contrast outline buttonHouseCard"
-                      v-bind:data-target="'edit' + house._id"
-                      onClick="editModal(event)"
-                    >
-                      Editar
-                    </button>
-
-                    <!-- Modal - edit ********************************************************************************************-->
-                    <dialog v-bind:id="'edit' + house._id">
-                      <article>
-                        <a
-                          href="#close"
-                          aria-label="Close"
-                          class="close"
-                          v-bind:data-target="'edit' + house._id"
-                          onClick="editModal(event)"
-                        >
-                        </a>
-                        <h3>Editar Casa?</h3>
-
-                        <input
-                          type="text"
-                          name="streetName"
-                          v-bind:id="'editStreetName' + house._id"
-                          class="inputField"
-                          v-model="house.streetName"
-                        />
-                        <input
-                          type="text"
-                          name="cityName"
-                          v-model="house.location"
-                          v-bind:id="'editLocation' + house._id"
-                          class="inputField"
-                        />
-                        <input
-                          type="text"
-                          name="codigoPostal"
-                          v-model="house.postalCode"
-                          v-bind:id="'editCodigoPostal' + house._id"
-                          class="inputField"
-                        />
-                        <input
-                          type="text"
-                          name="latitude"
-                          v-model="house.latitude"
-                          v-bind:id="'editLatitude' + house._id"
-                          class="inputField"
-                          pattern="-?\d+(\.\d+)?"
-                          title="Please enter a valid number"
-                        />
-
-                        <input
-                          type="text"
-                          name="longitude"
-                          v-model="house.longitude"
-                          v-bind:id="'editLongitude' + house._id"
-                          class="inputField"
-                          pattern="-?\d+(\.\d+)?"
-                          title="Please enter a valid number"
-                        />
-                        <footer>
-                          <a
-                            href="#cancel"
-                            role="button"
-                            class="secondary"
-                            v-bind:data-target="'edit' + house._id"
-                            onClick="editModal(event)"
-                          >
-                            Cancelar
-                          </a>
-                          <a
-                            href="#confirm"
-                            role="button"
-                            v-bind:data-target="'edit' + house._id"
-                            @Click="confirmEdit($event)"
-                          >
-                            Editar
-                          </a>
-                        </footer>
-                      </article>
-                    </dialog>
-                    <!--end off modal - edit ********************************************************************************************-->
+                    <img
+                      src="./assests/images/RuinedHouse.png"
+                      alt="Ruined house not loading"
+                    />
+                    <br />
+                    <br />
+                    <h6>Insire a primeira Casa Devoluta!</h6>
                   </div>
-
                   <br />
                 </div>
               </div>
 
-              <!-- formButton toggle - content ********************************************************************************************-->
+              <!-- formButton toggle - content
+                enctype="multipart/form-data" - use this to add this attribute for handling file uploads ********************************************************************************************-->
               <div v-else-if="show === 'formButton'">
                 <form
                   id="registerHouse_form"
-                  onsubmit="submitForm(event)"
+                  @submit.prevent="submitForm"
                   class="formHouseInputFields"
+                  enctype="multipart/form-data"
                 >
-                  <!-- leave for last
-                <input type="file" accept="image/*" required />
-                <label for="photo" align="left">Foto da casa</label>-->
-
-                  <p class="info">
-                    Por favor, insira os dados para Registar Casa.
-                  </p>
-
+                  <h5>
+                    Por favor, insira <b>todos</b> os dados para Registar Casa.
+                  </h5>
+                  <br />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="photo"
+                    name="photo"
+                    required
+                  />
+                  <label for="photo" align="left">Foto da casa</label>
                   <input
                     type="text"
                     id="streetName"
@@ -384,27 +442,49 @@
                     title="Please enter a valid number"
                     required
                   />
+                  <br />
+                  <br />
                   <button type="submit" class="outline">Registar Casa</button>
                   <!-- end form -->
                 </form>
               </div>
 
               <!-- formButton toggle - content ********************************************************************************************-->
-              <div v-else-if="show === 'mapa'">
-                <div id="map"></div>
-              </div>
+              <div v-else-if="show === 'map'"></div>
 
-              <!-- what is seen when the user enters the 'Painel de Controle' ********************************************************************************************-->
-              <div v-else>
-                <div>
-                  <img src="./assests/images/3d-model-house-room.png" />
+              <!-- main toggle - content ********************************************************************************************-->
+              <!-- <div v-else-if="show === 'main'"><p>teste teste</p></div> -->
+              <div v-if="showVElseContent">
+                <div v-else>
+                  <br />
+                  <p><b>Vê, Edita e Apaga</b> as tuas casas</p>
+                  <p><b>Regista</b> uma casa através de formulário.</p>
+                  <p><b>Acede ao mapa</b> ???????????</p>
+                  <br />
+                  <div>
+                    <img src="./assests/images/3d-model-house-room.png" />
+                  </div>
+                  <br />
                 </div>
-                <br />
               </div>
             </div>
-            <!--logout button ********************************************************************************************-->
+            <!--map and show houses button ********************************************************************************************-->
             <br />
             <div>
+              <div>
+                <button
+                  onClick="fetchAndShowHousesOnMap(map)"
+                  class="costum-outlineExit outline"
+                  id="getHousesButtonMap"
+                >
+                  Ver Casas
+                </button>
+                <button onclick="generateHeatmap()">Densidade</button>
+                <br />
+                <div id="map"></div>
+              </div>
+              <!--logout button ********************************************************************************************-->
+              <br />
               <button
                 class="contrast outline costum-outlineExit"
                 onclick="removeLogin()"
@@ -427,11 +507,7 @@
     </main>
 
     <script src="./components/ToggleContent.js" type="module"></script>
-    <script src="./scripts/logout.js"></script>
-    <!-- <script src="./scripts/toggleModal.js"></script> -->
-    <script src="./scripts/deleteHouse.js"></script>
-    <script src="./scripts/registerHouse.js"></script>
-    <script src="./scripts/editHouse.js"></script>
+    <script src="./scripts/checkIfLoggedIn.js"></script>
     <script src="./scripts/map.js"></script>
   </body>
 </html>
