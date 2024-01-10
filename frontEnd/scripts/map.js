@@ -1,15 +1,20 @@
 
-//map initialized in Portugal
-const map = L.map('map').setView([40.515367, -8.501954], 13.5);
+let heatmapDisplayed = false;
+let heat; 
+/*map initialized in Portugal ********************************************************************************************/
+const map = L.map('map').setView([40.513285, -8.497572], 11.58);
 
-// Esri World Street Map layer
+/* Esri World Street Map layer ********************************************************************************************/
 const Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 }).addTo(map);
 
+/*hide content in other v-elses that are manages by ToggleContent.js - toggleContent(testCase)  ********************************************************************************************/
 document.getElementById("map").style.display = "none";
-document.getElementById("getHousesButtonMap").style.display = "none";
+document.getElementById("getHeatMap").style.display = "none";
+document.getElementById("mapSwitch").style.display = "none";
 
+/*Get all houses and display them in popups with latitude / longitude / photo ********************************************************************************************/
 async function fetchAndShowHousesOnMap(map) {
 try {
     const url = `http://localhost:3000/house`;
@@ -45,29 +50,61 @@ try {
     // Bind the popup to the marker
     marker.bindPopup(popupContent);
     });
-
 } catch (error) {
     console.error("Error: ", error);
 }};
 
-// Function to generate heatmap
-function generateHeatmap() {
-    // Fetch houses and create heatmap as before
-    fetchAndShowHousesOnMap(map);
-
-    // Create an array of heatmap data points with weights based on the number of houses
-    const heatmapData = this.houses.map(house => [house.latitude, house.longitude, 1]);
-
-    // Add the heatmap layer to the map
-    const heatLayer = L.heatLayer(heatmapData).addTo(map);
-};
-
-// Function to convert array buffer to base64
+/*photo data to Base64 - map - get all houses and display markers with popups ********************************************************************************************/
 function arrayBufferToBase64(buffer) {
     let binary = '';
     const bytes = new Uint8Array(buffer);
-    bytes.forEach(byte => binary += String.fromCharCode(byte));
-    return btoa(binary);
+    const len = bytes.byteLength;
+
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+
+    return window.btoa(binary);
 };
 
+function heatmap() {
+    if (heatmapDisplayed) {
+        // If heatmap is displayed, remove it
+        map.removeLayer(heat);
+    } else {
+        document.getElementById("mapImage").src = "./assests/images/switch_off.png"
+        // If heatmap is not displayed, add it
+        const heatArray = this.houses.map((house) => [
+            house.latitude,
+            house.longitude,
+        ]);
 
+        heat = L.heatLayer(heatArray, {
+            radius: 30,
+            blur: 20,
+            max: 0.5,
+            minOpacity: 0.6,
+            gradient: {
+                0.4: "blue",
+                0.65: "lime",
+                1: "red",
+            },
+        }).addTo(map);
+    }
+
+    // Toggle the heatmapDisplayed variable
+    heatmapDisplayed = !heatmapDisplayed;
+
+    // Remove the existing houses markers
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
+    // Fetch and show houses on the map, regardless of heatmap state
+    if (!heatmapDisplayed) {
+        document.getElementById("mapImage").src = "./assests/images/switch_on.png"
+        fetchAndShowHousesOnMap(map);
+    }
+}

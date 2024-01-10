@@ -9,9 +9,105 @@ body {
   background-size: 100% 100%;
 }
 
-.loginInputFields{
-  width: 60%;
+.centerColumn {
+  background-color: rgba(26, 26, 26, 0.95);
+  border-color: azure;
+  border-width: 3px;
+  border-style: solid;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 30px;
+  text-align: center;
   margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(13, 13, 13, 0.95);
+}
+
+/* .centerDiv {
+  text-align: center;
+} */
+
+.logo {
+  margin: auto;
+  width: 180px;
+  height: 180px;
+  margin-top: 15px;
+}
+
+.appName {
+  color: #ffffff;
+  margin-top: 15px;
+}
+
+.messageLogin{
+  text-align: center;
+  font-size: 20px;
+}
+
+.loginInputFields{
+  width: 50%;
+  margin: 0 auto;
+}
+
+.whatIsThisApp{
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  background-color: rgba(13, 13, 13, 1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: azure;
+  padding: 50px 100px;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(74, 67, 67, 0.95);
+}
+
+.textDownWhatIsThisApp {
+  position: relative;
+  top: 10px;
+}
+
+/* .whatIs {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  background-color: rgba(13, 13, 13, 1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: azure;
+  padding: 50px 100px;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(74, 67, 67, 0.95);
+} */
+
+.controlePanel{
+  width: 95%;
+  margin: 0 auto;
+  text-align: center;
+  /* background-color: rgba(45, 45, 45, 0.95);
+  border-width: 1px;
+  border-style: solid;
+  border-color: azure;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(74, 67, 67, 0.95); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* .textDown {
+  position: relative;
+  top: 10px;
+} */
+
+.controlePanelInfo{
+  background-color: rgba(0, 0, 0, 0.95);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 30px;
+  width: 75%;
+  box-shadow: inset 0 0 20px rgba(124, 123, 123, 0.95);
+  box-shadow: 0 0 20px rgba(74, 67, 67, 0.95);
+  padding-bottom: 10px;
 }
 
 .formHouseInputFields {
@@ -24,51 +120,39 @@ body {
   margin: 0 auto;
 }
 
-.whatIs{
-  width: 75%;
-  margin: 0 auto;
-  text-align: center;
-  background-color: 1f1f1f;
-  border-width: 1px;
-  border-style: solid;
-  border-color: azure;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.centerDiv{
-  text-align: center;
-}
-
-.logo{
-  margin: auto;;
-  width: 150px;
-  height: 150px;
-  margin-top: 15px;
-}
-
-.centerColumn{
-  background-color: rgba(13, 13, 13, 0.9);
-  border-color: azure;
-  border-width: 1px;
-  border-style: solid;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 10px;
-  max-width: 80vw;
-  text-align: center;
-  margin: 0 auto;
-}
-
-.information{
+/* .information{
   text-align: center;
   background-color: 111111;
   padding: 20px;
   border-radius: 10px;
-}
+} */
 
 .inputField{
-  background-color: 1f1f1f;
+  background-color: rgb(31, 31, 31);
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(253, 253, 253, 0.4);
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.registerloginHouseButton {
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(253, 253, 253, 0.4);
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.button {
+  margin: 10px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(253, 253, 253, 0.4);
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.activeButtonToggle {
+  color: #ffffff;
+  font-size: larger;
 }
 
 .info{
@@ -76,22 +160,25 @@ body {
   font-size: 15px;
 }
 
-.textDown{
-  position: relative;
-  top: 10px;
+.infoApp {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 20px;
 }
 
 .costum-outline{
   color: rgba(255, 0, 0, 0.527);
 }
 
-.costum-outlineExit{
+/* .costum-outlineExit{
   color: rgb(255, 255, 255);
   margin: 0 auto;
-  width: 50%;
-}
+  width: 30%;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(253, 253, 253, 0.4);
+} */
 
-.infoDiv{
+/* .infoDiv{
   text-align: center;
   background-color: 1f1f1f;
   border-width: 1px;
@@ -100,12 +187,7 @@ body {
   padding: 40px;
   border-radius: 10px;
   margin: 10px;
-}
-
-.appName{
-  color: #ffffff;
-  margin-top: -20px;
-}
+} */
 
 .dot{
   font-size: 50%;
@@ -125,16 +207,6 @@ body {
   justify-content: center;
   width: 50%;
   margin: 0 auto;
-  
-}
-
-.button{
-  margin: 10px;
-}
-
-.activeButtonToggle {
-  color: #ffffff;
-  font-size: larger;
 }
 
 .noBorderButton{
@@ -142,30 +214,36 @@ body {
 }
 
 .iconHouseCard{
-  width: 30%;
+  width: 40%;
   margin: 0 auto;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 }
 
-.headerCardHouse{
-  width: 80%;
+/* .headerCardHouse{
+  width: 95%;
   margin: -50px 0 auto;
-}
+} */
 
 .houseDisplay {
-  margin: 0 auto;
   border-radius: 20px;
   border-width: 1px;
   border-style: solid;
   border-color: azure;
-  padding: 40px;
-  margin: 10px;
+  background-color: rgba(13, 13, 13, 0.8);
+  padding: 40px 0;
+  text-align: center;
+  margin: 20px auto 50px;
+  box-shadow: inset 0 0 20px rgba(74, 67, 67, 0.95);
+  box-sizing: border-box;
+  width: 95%;
 }
 
+
 .buttonHouseCard{
-  width: 70%;
+  width: 40%;
   margin: 0 auto;
   margin-top: 30px;
+  border-radius: 20px;
 }
 
 #map {
@@ -173,6 +251,8 @@ body {
   width: 90%;
   justify-content: center;
   margin: 0 auto;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(74, 67, 67, 0.95);
 }
 
 .houseAtributeLogDiv1{
@@ -191,9 +271,53 @@ body {
 
 .gridCardHouse{
   display: flex;
+  align-items: center;
 }
 
 .housePhotoCard{
   width: 250px;
   height: 250px;
+}
+
+.mapButton{
+  width: 40%;
+  margin: 30px auto;
+  border-radius: 20px;
+}
+
+.outlineExit{
+  color: rgb(255, 255, 255);
+  margin: 30px auto;
+  width: 30%;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(253, 253, 253, 0.4);
+}
+
+.modals{
+  border-radius: 30px;
+}
+
+#mapImage {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.mapSwitch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  margin: 0 auto;
+  flex-direction: row;
+}
+
+.mapSwitch p,
+.mapSwitch img {
+  margin: 0 10px;
+}
+
+#emotionalAppeal p {
+  line-height: 40px;
 }
