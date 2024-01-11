@@ -12,7 +12,29 @@ const loginApp = ({
   houses: [],
   map: null,
   showVElseContent: true,
+  currentPage: 1,
+  housesPerPage: 3,
 
+  /* pagination - all houses  ********************************************************************************************/
+  paginatedHouses() {
+    const startIndex = (this.currentPage - 1) * this.housesPerPage;
+    const endIndex = startIndex + this.housesPerPage;
+    return this.houses.slice(startIndex, endIndex);
+  },
+
+  nextPage() {
+    if (this.currentPage < Math.ceil(this.houses.length / this.housesPerPage)) {
+      this.currentPage++;
+    }
+  },
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  },
+
+  /* login ********************************************************************************************/
   async login() {
     try {
       this.isLoading = true;
@@ -70,17 +92,48 @@ const loginApp = ({
     } finally {
       this.isLoading = false; // Set loading to false when the login process is completed or failed
       // Call initializeApp after login to update isLoggedin state
-      this.initializeApp();
+      // this.initializeApp();
     }
   },
 
-    initializeApp() {
-    console.log("Initializing app");
+  /* ********************************************************************************************/
+  //   initializeApp() {
+  //   console.log("Initializing app");
     
-    // Retrieve isLoggedin state from localStorage
-    this.isLoggedin = localStorage.getItem('cacheCheckLogin') === 'true';
-    return this.isLoggedin;
-  },
+  //   // Retrieve isLoggedin state from localStorage
+  //   this.isLoggedin = localStorage.getItem('cacheCheckLogin') === 'true';
+  //   return this.isLoggedin;
+  // },
+
+  /* Function to autofill latitude and longitude ********************************************************************************************/
+  autofillLocation() {
+  if (navigator.geolocation) {
+    // Options for geolocation request 
+    const options = {
+      enableHighAccuracy: true, // Get the most accurate position available
+      timeout: 5000, // Maximum time (in milliseconds) to wait for location data
+      maximumAge: 0, // Don't use a cached position
+    };
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const latitudeInput = document.getElementById("latitude");
+        const longitudeInput = document.getElementById("longitude");
+
+        // Autofill latitude and longitude inputs
+        latitudeInput.value = position.coords.latitude.toFixed(6);
+        longitudeInput.value = position.coords.longitude.toFixed(6);
+      },
+      (error) => {
+        console.error("Error getting geolocation:", error);
+        alert("Erro ao obter a geolocalização. Por favor, introduza os valores manualmente.");
+      },
+      options
+    );
+  } else {
+    alert("Geoloclização não é suportada pelo Broswer. Por favor, introduza os valores manualmente.");
+  }
+},
 
   /* Get All Houses  ********************************************************************************************/
   async getAllHouses() {
@@ -401,5 +454,5 @@ console.log('Before mounting app');
 createApp({ loginApp }).mount('#app');
 console.log('After mounting app');
 // Initialize the user's state when the app is created
-loginApp.initializeApp();
+// loginApp.initializeApp();
 

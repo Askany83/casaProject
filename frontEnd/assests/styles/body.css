@@ -135,6 +135,10 @@ body {
   margin-bottom: 5px;
 }
 
+.inputField::placeholder {
+  color: rgb(220, 211, 211, 0.8);
+}
+
 .registerloginHouseButton {
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(253, 253, 253, 0.4);
@@ -148,7 +152,47 @@ body {
   box-shadow: 0 0 10px rgba(253, 253, 253, 0.4);
   margin-top: 5px;
   margin-bottom: 5px;
+  /* border: 2px solid azure; */
 }
+
+.paginationButton {
+  margin: 30px 20px 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(253, 253, 253, 0.4);
+  color: azure;
+}
+
+.currentPageText{
+  margin-top: 20px;
+}
+
+.bottomPagination{
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 45px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.inputFieldCoordButton{
+  background-color: rgb(31, 31, 31);
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(253, 253, 253, 0.4);
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.buttonSideBySide {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+/* .button .inactiveText {
+  color: rgb(26, 26, 26, 0.95);
+} */
 
 .activeButtonToggle {
   color: #ffffff;
@@ -200,13 +244,6 @@ body {
 
 .hidden{
   display:none;
-}
-
-.buttonSideBySide{
-  display: flex;
-  justify-content: center;
-  width: 50%;
-  margin: 0 auto;
 }
 
 .noBorderButton{
@@ -283,6 +320,8 @@ body {
   width: 40%;
   margin: 30px auto;
   border-radius: 20px;
+  box-shadow: 0 0 10px rgba(253, 253, 253, 0.4);
+  color: azure;
 }
 
 .outlineExit{

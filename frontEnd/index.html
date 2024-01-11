@@ -183,7 +183,7 @@
                           v-if="show === 'housesButton'"
                           ><b>Casas</b></span
                         >
-                        <span v-else>Ver Registos</span>
+                        <span class="inactiveText" v-else>Ver Registos</span>
                       </button>
 
                       <!-- formButton toggle - button ********************************************************************************************-->
@@ -197,7 +197,7 @@
                           v-if="show === 'formButton'"
                           ><b>Formulário</b></span
                         >
-                        <span v-else>Registar Casa</span>
+                        <span class="inactiveText" v-else>Registar Casa</span>
                       </button>
 
                       <!--map toggle - button ********************************************************************************************-->
@@ -210,7 +210,7 @@
                         <span class="activeButtonToggle" v-if="show === 'mapa'"
                           ><b>Mapa</b></span
                         >
-                        <span v-else>Utilizar Mapa</span>
+                        <span class="inactiveText" v-else>Utilizar Mapa</span>
                       </button>
                       <br />
                     </div>
@@ -219,9 +219,29 @@
                     <!-- end of toogle buttons ********************************************************************************************-->
                     <!-- housesButton toggle - content ********************************************************************************************-->
                     <div v-if="show === 'housesButton'">
-                      <div v-if="houses.length > 0">
+                      <div class="buttonSideBySide">
+                        <button
+                          @click="prevPage"
+                          :disabled="currentPage === 1"
+                          class="paginationButton outline secondary"
+                        >
+                          Anterior
+                        </button>
+                        <span class="currentPageText">
+                          {{ currentPage }} de {{ Math.ceil(houses.length /
+                          housesPerPage) }}
+                        </span>
+                        <button
+                          @click="nextPage"
+                          :disabled="currentPage === Math.ceil(houses.length / housesPerPage)"
+                          class="paginationButton outline secondary"
+                        >
+                          Seguinte
+                        </button>
+                      </div>
+                      <div v-if="paginatedHouses().length > 0">
                         <div
-                          v-for="house in houses"
+                          v-for="house in paginatedHouses()"
                           :key="house._id"
                           class="houseDisplay"
                         >
@@ -453,7 +473,6 @@
                             </dialog>
                             <!--end off modal - edit ********************************************************************************************-->
                           </div>
-                          <br />
                         </div>
                       </div>
                       <div v-else>
@@ -470,6 +489,26 @@
                           <h6>Insire a primeira Casa Devoluta!</h6>
                         </div>
                         <br />
+                      </div>
+                      <div class="bottomPagination">
+                        <button
+                          @click="prevPage"
+                          :disabled="currentPage === 1"
+                          class="paginationButton outline secondary"
+                        >
+                          Anterior
+                        </button>
+                        <span class="currentPageText">
+                          {{ currentPage }} de {{ Math.ceil(houses.length /
+                          housesPerPage) }}
+                        </span>
+                        <button
+                          @click="nextPage"
+                          :disabled="currentPage === Math.ceil(houses.length / housesPerPage)"
+                          class="paginationButton outline secondary"
+                        >
+                          Seguinte
+                        </button>
                       </div>
                     </div>
                     <!-- formButton toggle - content
@@ -519,6 +558,13 @@
                           class="inputField"
                           required
                         />
+                        <button
+                          type="button"
+                          @click="autofillLocation"
+                          class="inputFieldCoordButton outline secondary"
+                        >
+                          Autopreencher coordenadas
+                        </button>
                         <input
                           type="text"
                           id="latitude"
@@ -573,7 +619,7 @@
             <div>
               <button
                 onClick="heatmap()"
-                class="outline mapButton"
+                class="outline secondary mapButton"
                 id="getHeatMap"
               >
                 Alternar vista

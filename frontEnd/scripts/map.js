@@ -17,6 +17,14 @@ document.getElementById("mapSwitch").style.display = "none";
 /*Get all houses and display them in popups with latitude / longitude / photo ********************************************************************************************/
 async function fetchAndShowHousesOnMap(map) {
 try {
+
+    // Remove heat layer if displayed
+    if (heatmapDisplayed) {
+        map.removeLayer(heat);
+        heatmapDisplayed = false;
+    }
+
+
     const url = `http://localhost:3000/house`;
     const res = await fetch(url);
     if (!res.ok) {
@@ -26,6 +34,14 @@ try {
 
     // Check on console what was created
     console.log("Houses array:", Array.from(this.houses));
+
+    // Remove existing houses markers
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+    document.getElementById("mapImage").src = "./assests/images/switch_on.png"
 
     this.houses.forEach((house) => {
     const { latitude, longitude, photo } = house;
